@@ -1,4 +1,4 @@
-package ICPCPreliminary2020;
+package contest.ICPCPreliminary2020;
 
 import java.util.Scanner;
 
