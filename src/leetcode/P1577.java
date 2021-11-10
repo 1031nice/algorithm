@@ -1,10 +1,15 @@
 package leetcode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /*
 1577. Number of Ways Where Square of Number Is Equal to Product of Two Numbers - medium
  */
+
+// 배열 1의 모든 원소에 제곱 -> O(N)
+// 배열 2의 두 원소의 곱 -> O(M^2)
+// 위의 두 결과 비교 -> O(N) (두 원소의 곱을 hash map에 저장할 경우)
 
 public class P1577 {
 
@@ -13,45 +18,28 @@ public class P1577 {
     }
 
     public int numTriplets(int[] nums1, int[] nums2) {
-        int ret = 0;
-
-        HashMap<Long, Integer> mulToCount2 = getMulToCount(nums2);
-        HashMap<Long, Integer> mulToCount1 = getMulToCount(nums1);
-
-        long[] freqNums1 = new long[nums1.length];
-        long[] freqNums2 = new long[nums2.length];
-
-        for(int i=0; i<nums1.length; i++) {
-            freqNums1[i] = (long) nums1[i] * nums1[i];
-        }
-        for(int i=0; i<nums2.length; i++) {
-            freqNums2[i] = (long) nums2[i] * nums2[i];
-        }
-
-        ret += countFreqOfSquare(mulToCount2, freqNums1);
-        ret += countFreqOfSquare(mulToCount1, freqNums2);
-
-        return ret;
+        return triplet(nums1, nums2) + triplet(nums2, nums1);
     }
 
-    private int countFreqOfSquare(HashMap<Long, Integer> mulToCount2, long[] longNums1) {
+    public int triplet(int[] sqrtArr, int[] mulArr) {
         int ret = 0;
-        for (long num : longNums1) {
-            if (mulToCount2.containsKey(num))
-                ret += mulToCount2.get(num);
-        }
-        return ret;
-    }
 
-    private HashMap<Long, Integer> getMulToCount(int[] nums2) {
-        HashMap<Long, Integer> mulToCount = new HashMap<>();
-        for (int i = 0; i < nums2.length; i++) {
-            for (int j = i + 1; j < nums2.length; j++) {
-                long now = (long) nums2[i] * nums2[j];
-                mulToCount.put(now, mulToCount.containsKey(now) ? mulToCount.get(now) + 1 : 1);
+        Map<Long, Integer> mulToCount = new HashMap<>();
+        for(int i=0; i<mulArr.length; i++) {
+            for(int j=i+1; j<mulArr.length; j++) {
+                long mul = (long)mulArr[i] * mulArr[j];
+                mulToCount.put(mul, mulToCount.containsKey(mul) ? mulToCount.get(mul) + 1 : 1);
             }
         }
-        return mulToCount;
+
+        for(int n : sqrtArr) {
+            long sqrt = (long)n * n;
+            if(mulToCount.containsKey(sqrt)) {
+                ret += mulToCount.get(sqrt);
+            }
+        }
+
+        return ret;
     }
 
 }
