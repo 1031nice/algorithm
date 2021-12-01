@@ -8,6 +8,8 @@ public class P2AddTwoNumbers {
         ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
+    //--------------------------------
+    //재귀
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         return add(l1, l2, 0);
     }
@@ -23,4 +25,34 @@ public class P2AddTwoNumbers {
         newNode.next = add(l1 == null ? null : l1.next, l2 == null ? null : l2.next, sum / 10);
         return newNode;
     }
+
+    //------------------------------
+    //반복문
+    /*public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        int carry = 0;
+
+        ListNode before = null;
+        ListNode head = null;
+        ListNode now = null;
+        while(l1 != null || l2 != null) {
+            int sum = carry;
+            sum += l1 == null ? 0 : l1.val;
+            sum += l2 == null ? 0 : l2.val;
+            carry = sum >= 10 ? 1 : 0; //올림수
+            sum %= 10;
+            now = new ListNode(sum);
+            if(before == null) {
+                head = now;
+            } else {
+                before.next = now;
+            }
+            l1 = l1 == null ? null : l1.next;
+            l2 = l2 == null ? null : l2.next;
+            before = now;
+        }
+        if(carry != 0) {
+            before.next = new ListNode(carry);
+        }
+        return head;
+    }*/
 }
