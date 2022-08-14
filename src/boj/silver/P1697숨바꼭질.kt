@@ -4,6 +4,8 @@ import java.util.*
 import kotlin.math.min
 
 /**
+ * S1 #BFS
+ *
  * 이 문제도 못으로 보고 무작정 때린거 보면 망치를 들고 있었나보다
  * 연속해서 DP 문제를 만났어서 그런지 DP겠거니 하고 접근했다가 한참 헤맸다
  *
