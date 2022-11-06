@@ -4,7 +4,7 @@ import java.util.*
 import kotlin.math.max
 
 /**
- * G5 #DP
+ * G5 #DP #String
  */
 fun main() = with(Scanner(System.`in`)) {
     val s1 = next()
