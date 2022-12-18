@@ -25,9 +25,31 @@ public class Main {
             int sortTypeNumber = sc.nextInt(); //오름이냐 내림이냐
 
             if (menuNumber == 1) { // 숫자 정렬
-                IntegerArraySort.sortNumbers(sortNumber, sortTypeNumber);
+                System.out.println("\nThe number of numbers to be sorted");
+                System.out.print("> ");
+                int size = sc.nextInt();
+                int[] nums = new int[size]; // 정렬할 숫자가 들어갈 배열
+
+                // 숫자 입력받기
+                System.out.println("\nThe numbers to be sorted");
+                System.out.print("> ");
+                for (int i = 0; i < size; i++) {
+                    nums[i] = sc.nextInt();
+                }
+                IntegerArraySort.sortNumbers(nums, sortNumber, sortTypeNumber);
             } else if (menuNumber == 2) { // 문자열 정렬
-                StringArraySort.sortStrings(sortNumber, sortTypeNumber);
+                System.out.println("\nThe number of words to be sorted");
+                System.out.print("> ");
+                int size = sc.nextInt();
+                String[] words = new String[size]; // 정렬할 문자열이 들어갈 배열
+
+                // 문자열 입력받기
+                System.out.println("\nThe numbers to be sorted");
+                System.out.print("> ");
+                for (int i = 0; i < size; i++) {
+                    words[i] = sc.next();
+                }
+                StringArraySort.sortStrings(words, sortNumber, sortTypeNumber);
             }
 
         }

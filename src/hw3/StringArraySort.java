@@ -1,24 +1,8 @@
 package hw3;
 
-import java.util.Scanner;
-
 public class StringArraySort {
 
-    static Scanner sc = new Scanner(System.in);
-
-    public static void sortStrings(int sortNumber, int sortTypeNumber) {
-        System.out.println("\nThe number of words to be sorted");
-        System.out.print("> ");
-        int size = sc.nextInt();
-        String[] words = new String[size]; // 정렬할 문자열이 들어갈 배열
-
-        // 문자열 입력받기
-        System.out.println("\nThe numbers to be sorted");
-        System.out.print("> ");
-        for (int i = 0; i < size; i++) {
-            words[i] = sc.next();
-        }
-
+    public static String[] sortStrings(String[] words, int sortNumber, int sortTypeNumber) {
         if (sortNumber == 1) { //Bubble
             if (sortTypeNumber == 1) { //Ascend
                 bubbleSortAsc(words);
@@ -31,15 +15,17 @@ public class StringArraySort {
             }
         } else if (sortNumber == 2) { //Merge
             if (sortTypeNumber == 1) {
-                mergeSort(words, size, true);
+                mergeSort(words, words.length, true);
                 System.out.println("<Results>");
                 printArray(words);
             } else if (sortTypeNumber == 2) {
-                mergeSort(words, size, false);
+                mergeSort(words, words.length, false);
                 System.out.println("<Results>");
                 printArray(words);
             }
         }
+
+        return words;
     }
 
     static String[] buff;    // 작업용 배열

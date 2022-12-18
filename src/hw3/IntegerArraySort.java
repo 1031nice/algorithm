@@ -1,24 +1,8 @@
 package hw3;
 
-import java.util.Scanner;
-
 public class IntegerArraySort {
 
-    static Scanner sc = new Scanner(System.in);
-
-    public static void sortNumbers(int sortNumber, int sortTypeNumber) {
-        System.out.println("\nThe number of numbers to be sorted");
-        System.out.print("> ");
-        int size = sc.nextInt();
-        int[] nums = new int[size]; // 정렬할 숫자가 들어갈 배열
-
-        // 숫자 입력받기
-        System.out.println("\nThe numbers to be sorted");
-        System.out.print("> ");
-        for (int i = 0; i < size; i++) {
-            nums[i] = sc.nextInt();
-        }
-
+    public static int[] sortNumbers(int[] nums, int sortNumber, int sortTypeNumber) {
         if (sortNumber == 1) { //Bubble
             if (sortTypeNumber == 1) //Ascend
             {
@@ -33,15 +17,17 @@ public class IntegerArraySort {
             }
         } else if (sortNumber == 2) { //Merge
             if (sortTypeNumber == 1) {
-                mergeSort(nums, size, true);
+                mergeSort(nums, nums.length, true);
                 System.out.println("<Results>");
                 printArray(nums);
             } else if (sortTypeNumber == 2) {
-                mergeSort(nums, size, false);
+                mergeSort(nums, nums.length, false);
                 System.out.println("<Results>");
                 printArray(nums);
             }
         }
+
+        return nums;
     }
 
     private static void bubbleSortAsc(int[] nums) {
