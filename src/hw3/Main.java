@@ -6,163 +6,84 @@ public class Main extends MergeSort {
 
     public static void main(String[] args) {
         while (true) {
-            System.out.println("[ ID : 2010248 ]");
-            System.out.println("[ Name : Seoyeon Kim ]\n");
-
-            System.out.println("1. Sort numbers");
-            System.out.println("2. Sort words");
-            System.out.println("3. Quit");
-            System.out.print("> ");
+            printMenu();
 
             Scanner sc = new Scanner(System.in);
-            int a = sc.nextInt(); //a는 정렬이냐 종료이냐
-            //System.out.println(a); //a에 숫자가 저장되어 있는 것
-
+            int menuNumber = sc.nextInt(); //a는 정렬이냐 종료이냐
             int[] nums; // 정렬할 숫자가 들어갈 배열
 
-            if (a == 1) //
-            {
-                System.out.println("\nSelect a sorting algorithm");
-                System.out.println("1. Bubble sort\n2. Merge sort"); //Bubble인지 Merge인지 선택합시다.
+            System.out.println("\nSelect a sorting algorithm");
+            System.out.println("1. Bubble sort\n2. Merge sort"); //Bubble인지 Merge인지 선택
+            System.out.print("> ");
+            int sortNumber = sc.nextInt();
+
+            System.out.println("\n1. Ascending order\n2. Descending order"); //오름차순인지 내림차순인지 선택
+            System.out.print("> ");
+            int sortTypeNumber = sc.nextInt(); //오름이냐 내림이냐
+
+            if (menuNumber == 1) { // 숫자 정렬
+                System.out.println("\nThe number of numbers to be sorted");
                 System.out.print("> ");
+                int size = sc.nextInt();
+                nums = new int[size];
 
-                int b = sc.nextInt();
-                //System.out.println(b); //Bubble이냐 Merge냐
-
-                System.out.println("\n1. Ascending order\n2. Descending order"); //Bubble인지 Merge인지 선택합시다.
+                // 숫자 입력받기
+                System.out.println("\nThe numbers to be sorted");
                 System.out.print("> ");
+                for (int i = 0; i < size; i++) {
+                    nums[i] = sc.nextInt();
+                }
 
-                int c = sc.nextInt(); //오름이냐 내림이냐
-                //System.out.println(c);
-
-                if (b == 1) { //Bubble
-                    int count = 0;                    // 입력받을 숫자의 개수
-                    int numMax = 0;                    // 최대값
-                    int search;                        // 검색할 숫자
-                    Boolean searchCheck = false;    // 검색한 숫자 체크
-
-                    System.out.println("\nThe number of numbers to be sorted");
-                    System.out.print("> ");
-                    count = sc.nextInt();
-                    nums = new int[count];
-
-                    // 숫자 입력받기
-                    System.out.println("\nThe numbers to be sorted");
-                    System.out.print("> ");
-                    for (int i = 0; i < count; i++) {
-                        nums[i] = sc.nextInt();
-                    }
-
-                    if (c == 1) //Ascend
+                if (sortNumber == 1) { //Bubble
+                    if (sortTypeNumber == 1) //Ascend
                     {
                         System.out.println("Number Bubble Ascend");
                         bubbleSortAsc(nums);
-                        //정렬 후 출력
-                        System.out.print("\n<Results>\n");
-                        System.out.print("정렬 후 Array는 ");
-                        for (int k = 0; k < nums.length; k++) {
-                            System.out.print(nums[k] + " ");
-                        }
-                        System.out.println("입니다.\n");
-                    } else if (c == 2) //Descend
+                        System.out.println("<Results>");
+                        printArray(nums);
+                    } else if (sortTypeNumber == 2) //Descend
                     {
                         System.out.println("Number Bubble Descend");
                         bubbleSortDesc(nums);
-                        //정렬 후 출력
-                        System.out.print("\n<Results>\n");
-                        System.out.print("정렬 후 Array는 ");
-                        for (int k = nums.length - 1; k >= 0; k--) {
-
-                            System.out.print(nums[k] + " ");
-
-                        }
-                        System.out.println("입니다.\n");
-
+                        System.out.println("<Results>");
+                        printArray(nums);
                     }
-                } else if (b == 2) { //Merge
-
-                    int count = 0;                    // 입력받을 숫자의 개수
-                    int numMax = 0;                    // 최대값
-                    int search;                        // 검색할 숫자
-                    Boolean searchCheck = false;    // 검색한 숫자 체크
-
-                    System.out.println("\nThe number of numbers to be sorted");
-                    count = sc.nextInt();
-                    nums = new int[count];
-
-                    // 숫자 입력받기
-                    System.out.print(count + "\nnumbers to be sorted\n> ");
-                    for (int i = 0; i < count; i++) {
-                        nums[i] = sc.nextInt();
-                    }
-
-                    if (c == 1) {
+                } else if (sortNumber == 2) { //Merge
+                    if (sortTypeNumber == 1) {
                         System.out.println("Number Merge Ascend");
-
-                        int left = 0;
-                        int right = count - 1;
-
-                        mergeSort(nums, count);
-
-                        //정렬 후 출력
-                        System.out.print("\n<Results>\n");
-                        System.out.print("정렬 후 Array는 ");
-                        for (int j = 0; j < nums.length; j++) {
-                            System.out.print(nums[j] + " ");
-                        }
-                        System.out.println("입니다.\n");
-
-                    } else if (c == 2) {
+                        mergeSort(nums, size);
+                        System.out.println("<Results>");
+                        printArray(nums);
+                    } else if (sortTypeNumber == 2) {
                         System.out.println("Number Merge Descend");
-
-                        int left = 0;
-                        int right = count - 1;
-
-                        mergeSort(nums, count);
-
-                        //정렬 후 출력
-                        System.out.print("\n<Results>\n");
-                        System.out.print("정렬 후 Array는 ");
-                        for (int j = nums.length - 1; j >= 0; j--) {
-                            System.out.print(nums[j] + " ");
-                        }
-                        System.out.println("입니다.\n");
-
-                    }
-
-                }
-            } else if (a == 2) {
-                System.out.println("\nSelect a sorting algorithm");
-                System.out.println("1.Bubble Sort\n2.Merge Sort");
-                System.out.print("> ");
-
-                Scanner sc2 = new Scanner(System.in);
-                int b = sc2.nextInt(); //Bubble이냐 Merge냐
-
-                if (b == 1) {
-                    System.out.println("\nSelect the sort order");
-
-                    System.out.println("1. Ascending order\n2. Descending order"); //Bubble인지 Merge인지 선택합시다.
-                    System.out.print("> ");
-
-                    Scanner sc3 = new Scanner(System.in);
-                    int c = sc3.nextInt(); //오름이냐 내림이냐
-                    //System.out.println(c);
-
-                    if (c == 1) {
-                        System.out.println("(Words Bubble Ascend) ");
-                        System.out.println("The words to be sorted\n");
-
-                    } else if (c == 2) {
-                        System.out.println("(Words Bubble Descend) ");
-                        System.out.println("The words to be sorted\n");
+                        mergeSort(nums, size);
+                        System.out.println("<Results>");
+                        printArray(nums);
                     }
                 }
-            } else if (a == 3) {
+            } else if (menuNumber == 2) { // 문자열 정렬
+
+            } else if (menuNumber == 3) {
                 break;
             }
 
         }
+    }
+
+    private static void printArray(int[] nums) {
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+
+    private static void printMenu() {
+        System.out.println("[ ID : 2010248 ]");
+        System.out.println("[ Name : Seoyeon Kim ]\n");
+        System.out.println("1. Sort numbers");
+        System.out.println("2. Sort words");
+        System.out.println("3. Quit");
+        System.out.print("> ");
     }
 
     private static void bubbleSortAsc(int[] nums) {
