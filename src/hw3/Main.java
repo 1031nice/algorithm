@@ -18,7 +18,7 @@ public class Main extends MergeSort {
             int a = sc.nextInt(); //a는 정렬이냐 종료이냐
             //System.out.println(a); //a에 숫자가 저장되어 있는 것
 
-            int[] num; // 정렬할 숫자가 들어갈 배열
+            int[] nums; // 정렬할 숫자가 들어갈 배열
 
             if (a == 1) //
             {
@@ -26,83 +26,54 @@ public class Main extends MergeSort {
                 System.out.println("1. Bubble sort\n2. Merge sort"); //Bubble인지 Merge인지 선택합시다.
                 System.out.print("> ");
 
-                Scanner sc2 = new Scanner(System.in);
-                int b = sc2.nextInt();
+                int b = sc.nextInt();
                 //System.out.println(b); //Bubble이냐 Merge냐
 
                 System.out.println("\n1. Ascending order\n2. Descending order"); //Bubble인지 Merge인지 선택합시다.
                 System.out.print("> ");
 
-                Scanner sc3 = new Scanner(System.in);
-                int c = sc3.nextInt(); //오름이냐 내림이냐
+                int c = sc.nextInt(); //오름이냐 내림이냐
                 //System.out.println(c);
 
                 if (b == 1) { //Bubble
-
                     int count = 0;                    // 입력받을 숫자의 개수
                     int numMax = 0;                    // 최대값
                     int search;                        // 검색할 숫자
                     Boolean searchCheck = false;    // 검색한 숫자 체크
 
-                    Scanner scanner = new Scanner(System.in); // 입력받을 숫자 개수 입력받기
                     System.out.println("\nThe number of numbers to be sorted");
                     System.out.print("> ");
-                    count = scanner.nextInt();
-                    num = new int[count];
+                    count = sc.nextInt();
+                    nums = new int[count];
 
                     // 숫자 입력받기
                     System.out.println("\nThe numbers to be sorted");
                     System.out.print("> ");
                     for (int i = 0; i < count; i++) {
-                        num[i] = scanner.nextInt();
+                        nums[i] = sc.nextInt();
                     }
 
                     if (c == 1) //Ascend
                     {
                         System.out.println("Number Bubble Ascend");
-
-                        //여기가 진짜 버블 오름 정렬
-                        int n = num.length;
-                        int temp = 0;
-                        for (int i = 0; i < n; i++) {
-                            for (int j = 1; j < (n - i); j++) {
-                                if (num[j - 1] > num[j]) {
-                                    //swap elements
-                                    temp = num[j - 1];
-                                    num[j - 1] = num[j];
-                                    num[j] = temp;
-                                }
-                            }
-                        }
+                        bubbleSortAsc(nums);
                         //정렬 후 출력
                         System.out.print("\n<Results>\n");
                         System.out.print("정렬 후 Array는 ");
-                        for (int k = 0; k < num.length; k++) {
-                            System.out.print(num[k] + " ");
+                        for (int k = 0; k < nums.length; k++) {
+                            System.out.print(nums[k] + " ");
                         }
                         System.out.println("입니다.\n");
                     } else if (c == 2) //Descend
                     {
-                        // System.out.println("Number Bubble Descend");
-
-                        int n = num.length;
-                        int temp = 0;
-                        for (int i = 0; i < n; i++) {
-                            for (int j = 1; j < (n - i); j++) {
-                                if (num[j - 1] > num[j]) {
-                                    //swap elements
-                                    temp = num[j - 1];
-                                    num[j - 1] = num[j];
-                                    num[j] = temp;
-                                }
-                            }
-                        }
+                        System.out.println("Number Bubble Descend");
+                        bubbleSortDesc(nums);
                         //정렬 후 출력
                         System.out.print("\n<Results>\n");
                         System.out.print("정렬 후 Array는 ");
-                        for (int k = num.length - 1; k >= 0; k--) {
+                        for (int k = nums.length - 1; k >= 0; k--) {
 
-                            System.out.print(num[k] + " ");
+                            System.out.print(nums[k] + " ");
 
                         }
                         System.out.println("입니다.\n");
@@ -115,46 +86,45 @@ public class Main extends MergeSort {
                     int search;                        // 검색할 숫자
                     Boolean searchCheck = false;    // 검색한 숫자 체크
 
-                    Scanner scanner = new Scanner(System.in); // 입력받을 숫자 개수 입력받기
                     System.out.println("\nThe number of numbers to be sorted");
-                    count = scanner.nextInt();
-                    num = new int[count];
+                    count = sc.nextInt();
+                    nums = new int[count];
 
                     // 숫자 입력받기
                     System.out.print(count + "\nnumbers to be sorted\n> ");
                     for (int i = 0; i < count; i++) {
-                        num[i] = scanner.nextInt();
+                        nums[i] = sc.nextInt();
                     }
 
                     if (c == 1) {
-                        //System.out.println("Number Merge Ascend");
+                        System.out.println("Number Merge Ascend");
 
                         int left = 0;
                         int right = count - 1;
 
-                        mergeSort(num, count);
+                        mergeSort(nums, count);
 
                         //정렬 후 출력
                         System.out.print("\n<Results>\n");
                         System.out.print("정렬 후 Array는 ");
-                        for (int j = 0; j < num.length; j++) {
-                            System.out.print(num[j] + " ");
+                        for (int j = 0; j < nums.length; j++) {
+                            System.out.print(nums[j] + " ");
                         }
                         System.out.println("입니다.\n");
 
                     } else if (c == 2) {
-                        //System.out.println("Number Merge Descend");
+                        System.out.println("Number Merge Descend");
 
                         int left = 0;
                         int right = count - 1;
 
-                        mergeSort(num, count);
+                        mergeSort(nums, count);
 
                         //정렬 후 출력
                         System.out.print("\n<Results>\n");
                         System.out.print("정렬 후 Array는 ");
-                        for (int j = num.length - 1; j >= 0; j--) {
-                            System.out.print(num[j] + " ");
+                        for (int j = nums.length - 1; j >= 0; j--) {
+                            System.out.print(nums[j] + " ");
                         }
                         System.out.println("입니다.\n");
 
@@ -188,9 +158,37 @@ public class Main extends MergeSort {
                         System.out.println("The words to be sorted\n");
                     }
                 }
+            } else if (a == 3) {
+                break;
             }
 
         }
+    }
+
+    private static void bubbleSortAsc(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 1; j < (nums.length - i); j++) {
+                if (nums[j - 1] > nums[j]) {
+                    swap(nums, j, j - 1);
+                }
+            }
+        }
+    }
+
+    private static void bubbleSortDesc(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 1; j < (nums.length - i); j++) {
+                if (nums[j - 1] < nums[j]) {
+                    swap(nums, j, j - 1);
+                }
+            }
+        }
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
     }
 }
 
