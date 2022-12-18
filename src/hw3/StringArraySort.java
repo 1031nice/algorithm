@@ -31,11 +31,11 @@ public class StringArraySort {
             }
         } else if (sortNumber == 2) { //Merge
             if (sortTypeNumber == 1) {
-                mergeSortAsc(words, 0, size);
+                mergeSort(words, size, true);
                 System.out.println("<Results>");
                 printArray(words);
             } else if (sortTypeNumber == 2) {
-                mergeSortDesc(words, 0, size);
+                mergeSort(words, size, false);
                 System.out.println("<Results>");
                 printArray(words);
             }
@@ -61,7 +61,7 @@ public class StringArraySort {
             }
 
             while (i <= right && j < p) {
-                a[k++] = (buff[j].compareTo(a[i]) > 0) ? buff[j++] : a[i++];
+                a[k++] = (buff[j].compareTo(a[i]) <= 0) ? buff[j++] : a[i++];
             }
 
             while (j < p) {
@@ -86,7 +86,7 @@ public class StringArraySort {
             }
 
             while (i <= right && j < p) {
-                a[k++] = (buff[j].compareTo(a[i]) < 0) ? buff[j++] : a[i++];
+                a[k++] = (buff[j].compareTo(a[i]) > 0) ? buff[j++] : a[i++];
             }
 
             while (j < p) {
@@ -96,10 +96,14 @@ public class StringArraySort {
     }
 
     //--- 병합 정렬 ---//
-    static void mergeSort(String[] a, int n) {
+    static void mergeSort(String[] a, int n, boolean isAsc) {
         buff = new String[n];                    // 작업용 배열을 생성
 
-        mergeSortAsc(a, 0, n - 1);            // 배열 전체를 병합 정렬
+        if (isAsc) {
+            mergeSortAsc(a, 0, n - 1);            // 배열 전체를 병합 정렬
+        } else {
+            mergeSortDesc(a, 0, n - 1);
+        }
 
         buff = null;                         // 작업용 배열을 해제
     }

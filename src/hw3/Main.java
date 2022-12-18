@@ -11,6 +11,9 @@ public class Main {
             printMenu();
 
             int menuNumber = sc.nextInt(); //a는 정렬이냐 종료이냐
+            if (menuNumber == 3) {
+                break;
+            }
 
             System.out.println("\nSelect a sorting algorithm");
             System.out.println("1. Bubble sort\n2. Merge sort"); //Bubble인지 Merge인지 선택
@@ -25,8 +28,6 @@ public class Main {
                 IntegerArraySort.sortNumbers(sortNumber, sortTypeNumber);
             } else if (menuNumber == 2) { // 문자열 정렬
                 StringArraySort.sortStrings(sortNumber, sortTypeNumber);
-            } else if (menuNumber == 3) {
-                break;
             }
 
         }

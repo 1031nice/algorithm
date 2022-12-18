@@ -33,11 +33,11 @@ public class IntegerArraySort {
             }
         } else if (sortNumber == 2) { //Merge
             if (sortTypeNumber == 1) {
-                mergeSort(nums, size);
+                mergeSort(nums, size, true);
                 System.out.println("<Results>");
                 printArray(nums);
             } else if (sortTypeNumber == 2) {
-                mergeSort(nums, size);
+                mergeSort(nums, size, false);
                 System.out.println("<Results>");
                 printArray(nums);
             }
@@ -73,7 +73,7 @@ public class IntegerArraySort {
     static int[] buff;    // 작업용 배열
 
     //--- a[left] ~ a[right]를 재귀적으로 병합정렬 ---//
-    static void mergeSort(int[] a, int left, int right) {
+    static void mergeSortAsc(int[] a, int left, int right) {
         if (left < right) {
             int i;
             int center = (left + right) / 2;
@@ -81,8 +81,8 @@ public class IntegerArraySort {
             int j = 0;
             int k = left;
 
-            mergeSort(a, left, center);         // 전반부를 병합정렬
-            mergeSort(a, center + 1, right);    // 후반부를 병합정렬
+            mergeSortAsc(a, left, center);         // 전반부를 병합정렬
+            mergeSortAsc(a, center + 1, right);    // 후반부를 병합정렬
 
             for (i = left; i <= center; i++) {
                 buff[p++] = a[i];
@@ -98,11 +98,40 @@ public class IntegerArraySort {
         }
     }
 
+    static void mergeSortDesc(int[] a, int left, int right) {
+        if (left < right) {
+            int i;
+            int center = (left + right) / 2;
+            int p = 0;
+            int j = 0;
+            int k = left;
+
+            mergeSortDesc(a, left, center);         // 전반부를 병합정렬
+            mergeSortDesc(a, center + 1, right);    // 후반부를 병합정렬
+
+            for (i = left; i <= center; i++) {
+                buff[p++] = a[i];
+            }
+
+            while (i <= right && j < p) {
+                a[k++] = (buff[j] > a[i]) ? buff[j++] : a[i++];
+            }
+
+            while (j < p) {
+                a[k++] = buff[j++];
+            }
+        }
+    }
+
     //--- 병합 정렬 ---//
-    static void mergeSort(int[] a, int n) {
+    static void mergeSort(int[] a, int n, boolean isAsc) {
         buff = new int[n];                    // 작업용 배열을 생성
 
-        mergeSort(a, 0, n - 1);            // 배열 전체를 병합 정렬
+        if (isAsc) {
+            mergeSortAsc(a, 0, n - 1);            // 배열 전체를 병합 정렬
+        } else {
+            mergeSortDesc(a, 0, n - 1);
+        }
 
         buff = null;                         // 작업용 배열을 해제
     }
