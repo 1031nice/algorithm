@@ -22,24 +22,86 @@ public class StringArraySort {
         if (sortNumber == 1) { //Bubble
             if (sortTypeNumber == 1) { //Ascend
                 bubbleSortAsc(words);
+                System.out.println("<Results>");
+                printArray(words);
             } else if (sortTypeNumber == 2) { //Descend
                 bubbleSortDesc(words);
+                System.out.println("<Results>");
+                printArray(words);
             }
         } else if (sortNumber == 2) { //Merge
             if (sortTypeNumber == 1) {
-                mergeSortAsc(words);
+                mergeSortAsc(words, 0, size);
+                System.out.println("<Results>");
+                printArray(words);
             } else if (sortTypeNumber == 2) {
-                mergeSortDesc(words);
+                mergeSortDesc(words, 0, size);
+                System.out.println("<Results>");
+                printArray(words);
             }
         }
     }
 
-    private static void mergeSortDesc(String[] words) {
+    static String[] buff;    // 작업용 배열
 
+    //--- a[left] ~ a[right]를 재귀적으로 병합정렬 ---//
+    static void mergeSortAsc(String[] a, int left, int right) {
+        if (left < right) {
+            int i;
+            int center = (left + right) / 2;
+            int p = 0;
+            int j = 0;
+            int k = left;
+
+            mergeSortAsc(a, left, center);         // 전반부를 병합정렬
+            mergeSortAsc(a, center + 1, right);    // 후반부를 병합정렬
+
+            for (i = left; i <= center; i++) {
+                buff[p++] = a[i];
+            }
+
+            while (i <= right && j < p) {
+                a[k++] = (buff[j].compareTo(a[i]) > 0) ? buff[j++] : a[i++];
+            }
+
+            while (j < p) {
+                a[k++] = buff[j++];
+            }
+        }
     }
 
-    private static void mergeSortAsc(String[] words) {
+    static void mergeSortDesc(String[] a, int left, int right) {
+        if (left < right) {
+            int i;
+            int center = (left + right) / 2;
+            int p = 0;
+            int j = 0;
+            int k = left;
 
+            mergeSortDesc(a, left, center);         // 전반부를 병합정렬
+            mergeSortDesc(a, center + 1, right);    // 후반부를 병합정렬
+
+            for (i = left; i <= center; i++) {
+                buff[p++] = a[i];
+            }
+
+            while (i <= right && j < p) {
+                a[k++] = (buff[j].compareTo(a[i]) < 0) ? buff[j++] : a[i++];
+            }
+
+            while (j < p) {
+                a[k++] = buff[j++];
+            }
+        }
+    }
+
+    //--- 병합 정렬 ---//
+    static void mergeSort(String[] a, int n) {
+        buff = new String[n];                    // 작업용 배열을 생성
+
+        mergeSortAsc(a, 0, n - 1);            // 배열 전체를 병합 정렬
+
+        buff = null;                         // 작업용 배열을 해제
     }
 
     private static void bubbleSortAsc(String[] words) {
@@ -68,6 +130,13 @@ public class StringArraySort {
         String temp = strings[i];
         strings[i] = strings[j];
         strings[j] = temp;
+    }
+
+    private static void printArray(String[] strings) {
+        for (String string : strings) {
+            System.out.print(string + " ");
+        }
+        System.out.println();
     }
 
 }
