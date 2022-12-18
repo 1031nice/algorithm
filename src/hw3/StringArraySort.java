@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class StringArraySort {
 
+    static Scanner sc = new Scanner(System.in);
+
     public int compareStrings(String word1, String word2) {
         for (int i = 0; i < Math.min(word1.length(), word2.length()); i++) {
             if ((int) word1.charAt(i) != (int) word2.charAt(i))//comparing unicode values
@@ -66,11 +68,11 @@ public class StringArraySort {
                 // arrToSort[i] = sc.nextStr();
             }
 
-            String[] sortedArr = StringArraySort(words);
+//            String[] sortedArr = StringArraySort(words);
 
-            for (int k = 0; k < sortedArr.length; k++) {
-                System.out.print(sortedArr[i] + " ");
-            }
+//            for (int k = 0; k < sortedArr.length; k++) {
+//                System.out.print(sortedArr[i] + " ");
+//            }
         }
 
         put.close();
@@ -81,6 +83,34 @@ public class StringArraySort {
     private String[] stringArraySort(String[] words) {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public static void sortStrings(int sortNumber, int sortTypeNumber) {
+        System.out.println("\nThe number of words to be sorted");
+        System.out.print("> ");
+        int size = sc.nextInt();
+        String[] strings = new String[size]; // 정렬할 문자열이 들어갈 배열
+
+        // 문자열 입력받기
+        System.out.println("\nThe numbers to be sorted");
+        System.out.print("> ");
+        for (int i = 0; i < size; i++) {
+            strings[i] = sc.next();
+        }
+
+        if (sortNumber == 1) { //Bubble
+            if (sortTypeNumber == 1) //Ascend
+            {
+            } else if (sortTypeNumber == 2) //Descend
+            {
+            }
+        } else if (sortNumber == 2) { //Merge
+            if (sortTypeNumber == 1) {
+
+            } else if (sortTypeNumber == 2) {
+
+            }
+        }
     }
 
 }
