@@ -2,6 +2,10 @@ package boj.gold
 
 import java.util.*
 
+/**
+ * G5
+ */
+
 fun main() = with(Scanner(System.`in`)) {
     repeat(nextInt()) {
         val commands = next()
