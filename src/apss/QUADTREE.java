@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class QUADTREE {
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_QUADTREE.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_QUADTREE.txt"));
         Iterator<String> iterator = lines.iterator();
         int testCases = Integer.parseInt(iterator.next());
 

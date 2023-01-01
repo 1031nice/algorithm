@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +14,7 @@ public class BOGGLE {
     static int[] colDir = {0, 1, 1, 1, 0, -1, -1, -1};
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_BOGGLE.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_BOGGLE.txt"));
         ListIterator<String> iterator = lines.listIterator();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.next();

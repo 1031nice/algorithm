@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +10,7 @@ public class TRAVERSAL {
 
     public static void main(String[] args) throws IOException {
         // input
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_TRAVERSAL.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_TRAVERSAL.txt"));
         ListIterator<String> iterator = lines.listIterator();
         int numOfNodes = Integer.parseInt(iterator.next());
         int[] front = new int[numOfNodes];

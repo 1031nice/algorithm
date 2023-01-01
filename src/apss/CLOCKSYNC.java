@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +22,7 @@ public class CLOCKSYNC {
     };
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_CLOCKSYNC.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_CLOCKSYNC.txt"));
         Iterator<String> iterator = lines.iterator();
         int testCases = Integer.parseInt(iterator.next());
         for(int j=0; j<testCases; j++) {

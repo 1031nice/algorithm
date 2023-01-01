@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 public class LIS {
 

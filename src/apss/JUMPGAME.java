@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class JUMPGAME {
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_JUMPGAME.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_JUMPGAME.txt"));
         Iterator<String> iterator = lines.iterator();
         int row = Integer.parseInt(iterator.next());
         int col = Integer.parseInt(iterator.next());

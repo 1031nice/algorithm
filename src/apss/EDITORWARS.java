@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,7 +31,7 @@ public class EDITORWARS {
     }
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_EDITORWARS.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_EDITORWARS.txt"));
         ListIterator<String> iterator = lines.listIterator();
         int numOfCases = Integer.parseInt(iterator.next());
 

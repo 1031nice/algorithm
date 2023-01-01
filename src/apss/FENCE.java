@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class FENCE {
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/inputs/fence.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS.inputs/fence.txt"));
         Iterator<String> iterator = lines.iterator();
         int numOfTests = Integer.parseInt(iterator.next());
         for(int i=0; i<numOfTests; i++){

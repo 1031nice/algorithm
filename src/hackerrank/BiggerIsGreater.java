@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class BiggerIsGreater {
     public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("./src/hackerrank/inputs/biggerisgreater.txt")));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("./src/hackerrank/APSS.inputs/biggerisgreater.txt")));
         BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int T = Integer.parseInt(bufferedReader.readLine().trim());

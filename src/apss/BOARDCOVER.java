@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,7 +19,7 @@ public class BOARDCOVER {
     };
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/inputs/boardcover.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS.inputs/boardcover.txt"));
         ListIterator<String> iterator = lines.listIterator();
 
         int numOfTestCases = Integer.parseInt(iterator.next());

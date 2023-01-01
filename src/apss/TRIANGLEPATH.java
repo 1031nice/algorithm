@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class TRIANGLEPATH {
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_TRIANGLEPATH.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_TRIANGLEPATH.txt"));
         Iterator<String> iterator = lines.iterator();
         String[] rowAndCol = iterator.next().split(" ");
         int row = Integer.parseInt(rowAndCol[0]);

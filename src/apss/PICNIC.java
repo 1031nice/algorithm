@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.util.Scanner;
 

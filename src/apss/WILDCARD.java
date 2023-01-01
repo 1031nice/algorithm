@@ -1,4 +1,4 @@
-package APSS;
+package apss;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.util.List;
 public class WILDCARD {
 
     public static void main(String[] args) throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/inputs/input_WILDCARD.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("./src/APSS/APSS.inputs/input_WILDCARD.txt"));
         Iterator<String> iterator = lines.iterator();
         int TEST_CASES = Integer.parseInt(iterator.next());
         for(int i=0; i<TEST_CASES; i++){
