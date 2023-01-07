@@ -1,7 +1,7 @@
 package leetcode.medium
 
-import java.lang.Math.min
 import kotlin.math.max
+import kotlin.math.min
 
 fun main() {
     val input = arrayOf(
