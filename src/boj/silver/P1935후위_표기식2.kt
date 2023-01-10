@@ -2,6 +2,9 @@ package boj.silver
 
 import java.util.*
 
+/**
+ * S3 #Stack
+ */
 fun main() = with(Scanner(System.`in`)) {
     val operands = nextInt()
     val expression = next()
