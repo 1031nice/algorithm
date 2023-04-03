@@ -7,15 +7,15 @@ var cnt2623 = 0
 /**
  * G3 #TopologicalSort
  *
- * 위상정렬은 DFS를 통해 풀 수도 있고 -> withDfs()
- * DFS를 이용하지 않고도 풀이가 가능하다 -> withoutDfs()
+ * 위상정렬은 DFS/BFS를 이용하여 풀 수도 있고 -> withDfs(), withBfs()
+ * DFS/BFS를 이용하지 않고도 풀 수 있다 -> withoutDfs()
  */
 
 fun main() = with(Scanner(System.`in`)) {
     val solution = P2623음악프로그램()
     val nNode = nextInt()
     val matrix = Array(nNode) { arrayListOf<Int>() }
-//    val ingoingEdges = Array(nNode) { 0 }
+    val ingoingEdges = Array(nNode) { 0 }
 
     repeat(nextInt()) {
         val len = nextInt()
@@ -23,7 +23,7 @@ fun main() = with(Scanner(System.`in`)) {
         for (i in 1 until len) {
             val next = nextInt() - 1
             matrix[now].add(next)
-//            ingoingEdges[next]++
+            ingoingEdges[next]++
             now = next
         }
     }
@@ -31,8 +31,8 @@ fun main() = with(Scanner(System.`in`)) {
     val visited = Array(nNode) { false }
     val result = LinkedList<Int>()
 
-    solution.withDfs(nNode, visited, result, matrix)
-//    solution.withoutDfs(nNode, ingoingEdges, visited, result, matrix)
+//    solution.withDfs(nNode, visited, result, matrix)
+    solution.withBfs(nNode, ingoingEdges, visited, result, matrix)
 }
 
 val WHITE = 0
@@ -41,7 +41,7 @@ val BLACK = 2
 var CYCLE = false
 
 class P2623음악프로그램 {
-    // O(N+M)
+    // O(V+E)
     fun withDfs(nNode: Int, visited: Array<Boolean>, result: LinkedList<Int>, matrix: Array<ArrayList<Int>>) {
         val color = Array(nNode) { WHITE }
         (0 until nNode).forEach { node ->
@@ -79,8 +79,48 @@ class P2623음악프로그램 {
         color[start] = BLACK
     }
 
+    // O(V+E)
+    fun withBfs(
+        nNode: Int,
+        ingoingEdges: Array<Int>,
+        visited: Array<Boolean>,
+        result: LinkedList<Int>,
+        matrix: Array<ArrayList<Int>>
+    ) {
+
+        val q = LinkedList<Int>()
+
+        (0 until nNode).forEach { node ->
+            if (ingoingEdges[node] == 0) {
+                q.add(node)
+            }
+        }
+
+        while (q.isNotEmpty()) {
+            val node = q.poll()
+            if (!visited[node]) {
+                visited[node] = true
+
+                for (neighbor in matrix[node]) {
+                    ingoingEdges[neighbor]--
+                    if (!visited[neighbor] && ingoingEdges[neighbor] == 0) {
+                        q.add(neighbor)
+                    }
+                }
+
+                result.add(node)
+            }
+        }
+
+        if (ingoingEdges.all { it == 0 }) {
+            result.forEach { println(it + 1) }
+        } else {
+            print("0")
+        }
+    }
+
     // O(N^2)
-    fun withoutDfs(
+    fun naive(
         nNode: Int,
         ingoingEdges: Array<Int>,
         visited: Array<Boolean>,
