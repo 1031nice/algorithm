@@ -7,19 +7,15 @@ var cnt2623 = 0
 /**
  * G3 #TopologicalSort
  *
- * 위상정렬은 DFS를 통해 풀 수도 있고, 아래 풀이와 같이 DFS를 이용하지 않고도 풀이가 가능하다
- *
- * 생각해볼 점 1. O(N+M)이 가능하다고 하는데 이 풀이는 O(NM)
- *      어떻게 해야 ingoing edge가 0인 노드를 바로 찾을 수 있을까
- *      PQ를 생각했지만 PQ에 이미 들어가 있는 객체의 값을 수정한다고 그값이 바로 반영되는 것은 아니지 않나?
- *      아니면 값이 수정될 때마다 PQ poll -> add를 통해 PQ안에서 재정렬이 이루어지도록 해주면 되려나?
- * 생각해볼 점 2. DFS 풀이인 경우에도 위상정렬이 불가능한 경우를 찾을 수 있는지, 어떻게 찾는지 확인
+ * 위상정렬은 DFS를 통해 풀 수도 있고 -> withDfs()
+ * DFS를 이용하지 않고도 풀이가 가능하다 -> withoutDfs()
  */
 
 fun main() = with(Scanner(System.`in`)) {
+    val solution = P2623음악프로그램()
     val nNode = nextInt()
     val matrix = Array(nNode) { arrayListOf<Int>() }
-    val ingoingEdges = Array(nNode) { 0 }
+//    val ingoingEdges = Array(nNode) { 0 }
 
     repeat(nextInt()) {
         val len = nextInt()
@@ -27,45 +23,102 @@ fun main() = with(Scanner(System.`in`)) {
         for (i in 1 until len) {
             val next = nextInt() - 1
             matrix[now].add(next)
-            ingoingEdges[next]++
+//            ingoingEdges[next]++
             now = next
         }
     }
 
     val visited = Array(nNode) { false }
     val result = LinkedList<Int>()
-    while (true) {
-        if (cnt2623 == nNode) {
-            break
-        }
 
-        val (min, minIndex) = getMinToMinIndex(ingoingEdges, visited)
-        if (min != 0) {
-            println(0)
-            return
-        }
-
-        matrix[minIndex].forEach { ingoingEdges[it]-- }
-        visited[minIndex] = true
-        cnt2623++
-
-        result.addLast(minIndex + 1)
-    }
-    result.forEach { println("$it") }
+    solution.withDfs(nNode, visited, result, matrix)
+//    solution.withoutDfs(nNode, ingoingEdges, visited, result, matrix)
 }
 
-// O(N)
-private fun getMinToMinIndex(ingoingEdges: Array<Int>, visited: Array<Boolean>): Pair<Int, Int> {
-    var min = 1_001
-    var minIndex = -1
-    for ((i, v) in ingoingEdges.withIndex()) {
-        if (visited[i]) {
-            continue
+val WHITE = 0
+val GRAY = 1
+val BLACK = 2
+var CYCLE = false
+
+class P2623음악프로그램 {
+    // O(N+M)
+    fun withDfs(nNode: Int, visited: Array<Boolean>, result: LinkedList<Int>, matrix: Array<ArrayList<Int>>) {
+        val color = Array(nNode) { WHITE }
+        (0 until nNode).forEach { node ->
+            if (!visited[node]) {
+                dfs(result, matrix, visited, color, node)
+                if (CYCLE) {
+                    print("0")
+                    return
+                }
+            }
         }
-        if (min > v) {
-            min = v
-            minIndex = i
-        }
+        result.forEach { println(it + 1) }
     }
-    return Pair(min, minIndex)
+
+    private fun dfs(
+        nodes: LinkedList<Int>,
+        matrix: Array<ArrayList<Int>>,
+        visited: Array<Boolean>,
+        color: Array<Int>,
+        start: Int
+    ) {
+        visited[start] = true
+        color[start] = GRAY
+
+        for (neighbor in matrix[start]) {
+            if (!visited[neighbor]) {
+                dfs(nodes, matrix, visited, color, neighbor)
+            } else if (color[neighbor] == GRAY) {
+                CYCLE = true
+                return
+            }
+        }
+
+        nodes.addFirst(start)
+        color[start] = BLACK
+    }
+
+    // O(N^2)
+    fun withoutDfs(
+        nNode: Int,
+        ingoingEdges: Array<Int>,
+        visited: Array<Boolean>,
+        result: LinkedList<Int>,
+        matrix: Array<ArrayList<Int>>
+    ) {
+        while (true) {
+            if (cnt2623 == nNode) {
+                break
+            }
+
+            val (min, minIndex) = getMinToMinIndex(ingoingEdges, visited)
+            if (min != 0) {
+                println(0)
+                return
+            }
+
+            matrix[minIndex].forEach { ingoingEdges[it]-- }
+            visited[minIndex] = true
+            cnt2623++
+
+            result.addLast(minIndex + 1)
+        }
+        result.forEach { println("$it") }
+    }
+
+    private fun getMinToMinIndex(ingoingEdges: Array<Int>, visited: Array<Boolean>): Pair<Int, Int> {
+        var min = 1_001
+        var minIndex = -1
+        for ((i, v) in ingoingEdges.withIndex()) {
+            if (visited[i]) {
+                continue
+            }
+            if (min > v) {
+                min = v
+                minIndex = i
+            }
+        }
+        return Pair(min, minIndex)
+    }
 }
