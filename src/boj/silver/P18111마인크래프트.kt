@@ -2,7 +2,6 @@ package boj.silver
 
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
@@ -24,8 +23,6 @@ import kotlin.math.min
  * !기존에 있던 블럭을 가방에 넣을 수 있음(재사용할 수 있음)
  */
 
-var timeToHeight = 99_999_999 to -1
-
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     var line = readLine().split(" ")
     val row = line[0].toInt()
@@ -45,60 +42,34 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         }
     }
 
-    solve(freqs, board, blocks, min, max)
+    var timeToHeight = Int.MAX_VALUE to 0
+    for (targetHeight in 0 until 257) {
+        var time = 0
+        var varBlocks = blocks
 
-    println("${timeToHeight.first} ${timeToHeight.second}")
-}
+        for (height in freqs.indices) {
+            if (freqs[height] == 0) {
+                continue
+            }
 
-fun solve(freqs: Array<Int>, board: Array<Array<Int>>, blocks: Int, start: Int, end: Int) {
-    if (start > end) {
-        return
-    }
-
-    val mid = (start + end) / 2
-    val time = getTime(freqs, blocks, mid)
-    if (time != -1 &&
-        (timeToHeight.first > time ||
-        (timeToHeight.first == time && timeToHeight.second < mid))) {
-        timeToHeight = time to mid
-    }
-    solve(freqs, board, blocks, start, mid - 1)
-    solve(freqs, board, blocks, mid + 1, end)
-}
-
-private fun getTime(freqs: Array<Int>, blocks: Int, value: Int): Int {
-    var time = 0
-    var varBlocks = blocks
-    freqs.withIndex().forEach { (height, freq) ->
-        val diff = abs(value - height)
-        if (height < value) { // 채워넣기
-            time += diff * freq
-            varBlocks -= diff * freq
-        } else if (height > value) { // 빼기
-            time += diff * 2 * freq
-            varBlocks += diff * freq
+            val count = freqs[height]
+            if (height < targetHeight) { // 쌓기
+                varBlocks -= (targetHeight - height) * count
+                time += (targetHeight - height) * count
+            } else if (height > targetHeight) { // 제거하기
+                varBlocks += (height - targetHeight) * count
+                time += 2 * (height - targetHeight) * count
+            }
         }
-    }
 
-    return if (varBlocks < 0) { -1 } else { time }
-}
-
-// O(NM), N: 세로, M: 가로
-private fun setAs2(board: Array<Array<Int>>, blocks: Int, value: Int): Int {
-    var time = 0
-    var varBlocks = blocks
-    for (row in board) {
-        for (cell in row) {
-            val diff = abs(value - cell)
-            if (cell < value) { // 채워넣기
-                time += diff
-                varBlocks -= diff
-            } else if (cell > value) { // 빼기
-                time += diff * 2
-                varBlocks += diff
+        if (varBlocks >= 0) {
+            if (timeToHeight.first > time) {
+                timeToHeight = time to targetHeight
+            } else if (timeToHeight.first == time) {
+                timeToHeight = timeToHeight.first to max(timeToHeight.second, targetHeight)
             }
         }
     }
 
-    return if (varBlocks < 0) { -1 } else { time }
+    println("${timeToHeight.first} ${timeToHeight.second}")
 }
