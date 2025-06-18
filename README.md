@@ -1,4 +1,42 @@
-## Amortized analysis
+## Better Level Order BFS Implementation
+To perform level order BFS, so far, I've implemented it like this:
+```
+Queue<Node> q
+Queue<Integer> levelQ
+q.add(root)
+levelQ.add(1)
+lastLevel = 0
+while q is not empty:
+    now = q.poll()
+    level = levelQ.poll()
+    if level != lastLevel:
+        // new level
+        lastLevel = level
+    // do something
+    for (Node child : now.children):
+        q.add(child)
+        levelQ.add(level + 1)
+```
+
+Here is a better idea:
+```
+Queue<Node> q
+q.add(start)
+
+while q is not empty:
+    // new level
+    levelSize = q.size()
+    for i in 0 until levelSize:
+        now = q.poll()
+        // do something
+
+        for (Node child : now.children):
+            q.add(child)
+            
+    ret.add(currentLevel)
+```
+
+## Amortized Analysis
 
 I've long understood that time complexity isn't necessarily determined by the number of nested loops.
 Even if an algorithm has nested for loops, its time complexity could be O(N).
@@ -10,7 +48,7 @@ find_components(grid):
     component_count = 0 
     
     for r in 0 until rows:
-        for c 0 until cols:
+        for c in 0 until cols:
             if grid[r][c] == 1 and not visited:
                 component_count += 1
                 dfs(grid, visited, r, c)
